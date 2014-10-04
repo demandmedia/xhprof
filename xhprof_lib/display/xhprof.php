@@ -37,12 +37,15 @@ require_once $GLOBALS['XHPROF_LIB_ROOT'].'/utils/xhprof_lib.php';
 require_once $GLOBALS['XHPROF_LIB_ROOT'].'/utils/callgraph_utils.php';
 require_once $GLOBALS['XHPROF_LIB_ROOT'].'/utils/xhprof_runs.php';
 
+global $base_path;
 
 /**
  * Our coding convention disallows relative paths in hrefs.
  * Get the base URL path from the SCRIPT_NAME.
  */
-$base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+if (!isset($base_path)) {
+	$base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+}
 
 
 /**
@@ -201,6 +204,7 @@ function xhprof_render_link($content, $href, $class='', $id='', $title='',
   return $link;
 }
 
+global $sort_col, $diff_mode, $display_calls, $sortable_columns;
 
 // default column to sort on -- wall time
 $sort_col = "wt";
@@ -230,6 +234,7 @@ $sortable_columns = array("fn" => 1,
                           "excl_samples" => 1
                           );
 
+global $descriptions;
 // Textual descriptions for column headers in "single run" mode
 $descriptions = array(
                       "fn" => "Function Name",
@@ -272,6 +277,7 @@ $descriptions = array(
                       "ESamples%" => "ESamples%",
                       );
 
+global $format_cbk;
 // Formatting Callback Functions...
 $format_cbk = array(
                       "fn" => "",
@@ -314,7 +320,7 @@ $format_cbk = array(
                       "ESamples%" => "xhprof_percent_format",
                       );
 
-
+global $diff_descriptions;
 // Textual descriptions for column headers in "diff" mode
 $diff_descriptions = array(
                       "fn" => "Function Name",
@@ -356,7 +362,7 @@ $diff_descriptions = array(
                       "excl_samples" => "Excl. Samples Diff",
                       "ESamples%" => "ESamples Diff%",
                       );
-
+global $stats, $pc_stats, $totals, $totals_1, $totals_2, $metrics;
 // columns that'll be displayed in a top-level report
 $stats = array();
 

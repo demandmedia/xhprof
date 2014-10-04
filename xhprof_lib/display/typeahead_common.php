@@ -38,6 +38,11 @@ $params = array('q'          => array(XHPROF_STRING_PARAM, ''),
 // pull values of these params, and create named globals for each param
 xhprof_param_init($params);
 
+foreach ($params as $k => $v) {
+	global $$k;
+	$params[$k] = $$k;
+}
+
 if (!empty($run)) {
 
   // single run mode

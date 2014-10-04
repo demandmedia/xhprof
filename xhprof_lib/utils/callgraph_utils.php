@@ -19,7 +19,7 @@
  * functions
  *
  */
-
+global $xhprof_legal_image_types;
 // Supported ouput format
 $xhprof_legal_image_types = array(
     "jpg" => 1,
